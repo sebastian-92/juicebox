@@ -65,14 +65,14 @@
             const jukebox = document.getElementById('jukebox');
 
             // Fetch plaintext list of button titles from an external source
-            fetch('https://juicebox.playcode.io/buttons.txt')
+            fetch('https://raw.githubusercontent.com/sebastian-92/juicebox/main/buttons.txt')
                 .then(response => response.text())
                 .then(buttonData => {
                     // Split the plain text data into an array of button titles
                     const buttonTitles = buttonData.split('\n').filter(title => title.trim() !== '');
 
                     // Fetch plaintext list of button links from another external source
-                    fetch('https://juicebox.playcode.io/links.txt')
+                    fetch('https://raw.githubusercontent.com/sebastian-92/juicebox/main/links.txt')
                         .then(response => response.text())
                         .then(linkData => {
                             // Split the plain text data into an array of button links
