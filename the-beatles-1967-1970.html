@@ -79,46 +79,47 @@
 
                             // Function to create an audio element with title
                             function createAudioElement(mp3Url, title) {
-                                const audio = document.createElement('audio');
-                                audio.src = mp3Url;
-                                audio.controls = true;
-
                                 const titleElement = document.createElement('p');
                                 titleElement.textContent = title;
 
                                 const audioContainer = document.createElement('div');
                                 audioContainer.classList.add('audio-container');
                                 audioContainer.appendChild(titleElement);
-                                audioContainer.appendChild(audio);
 
                                 // Add click event to load audio on demand
                                 audioContainer.addEventListener('click', () => {
-                                    // Load audio only if not already loaded
-                                    if (!audio.getAttribute('src')) {
-                                        audio.src = mp3Url;
-                                    }
+                                    // Create audio element dynamically
+                                    const audio = document.createElement('audio');
+                                    audio.src = mp3Url;
+                                    audio.controls = true;
+                                    audioContainer.appendChild(audio);
+
                                     // Pause others when one is playing
-                                    pauseOthers(audioElements.indexOf(audio));
+                                    pauseOthers(audioContainer);
                                 });
 
                                 return audioContainer;
                             }
 
                             // Create an audio element with title for each MP3 file
-                            const audioElements = mp3Urls.map((mp3Url, index) => {
+                            const audioContainers = mp3Urls.map((mp3Url, index) => {
                                 return createAudioElement(mp3Url, titles[index]);
                             });
 
                             // Append audio containers to the jukebox
-                            audioElements.forEach(audioContainer => {
+                            audioContainers.forEach(audioContainer => {
                                 jukebox.appendChild(audioContainer);
                             });
 
                             // Function to pause other audio elements when one is playing
-                            function pauseOthers(currentIndex) {
-                                audioElements.forEach((audio, index) => {
-                                    if (index !== currentIndex) {
-                                        audio.querySelector('audio').pause();
+                            function pauseOthers(currentAudioContainer) {
+                                audioContainers.forEach(audioContainer => {
+                                    if (audioContainer !== currentAudioContainer) {
+                                        const audioElement = audioContainer.querySelector('audio');
+                                        if (audioElement) {
+                                            audioElement.pause();
+                                            audioContainer.removeChild(audioElement);
+                                        }
                                     }
                                 });
                             }
