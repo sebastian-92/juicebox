@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Juicebox</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #jukebox {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .button-container {
+            width: 100%;
+            max-width: 300px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            background-color: #fff;
+            padding: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease-in-out;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        p {
+            margin-top: 10px;
+            color: #555;
+            font-weight: bold;
+        }
+
+        .button-container:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Juicebox</h1>
+    <h3>A free online jukebox</h3>
+  <h3>Albums</h3>
+    <div id="jukebox"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const jukebox = document.getElementById('jukebox');
+
+            // Fetch plaintext list of button titles from an external source
+            fetch('https://juicebox.playcode.io/buttons.txt')
+                .then(response => response.text())
+                .then(buttonData => {
+                    // Split the plain text data into an array of button titles
+                    const buttonTitles = buttonData.split('\n').filter(title => title.trim() !== '');
+
+                    // Fetch plaintext list of button links from another external source
+                    fetch('https://juicebox.playcode.io/links.txt')
+                        .then(response => response.text())
+                        .then(linkData => {
+                            // Split the plain text data into an array of button links
+                            const buttonLinks = linkData.split('\n').filter(link => link.trim() !== '');
+
+                            // Function to create a button element with title and link
+                            function createButtonElement(title, link) {
+                                const titleElement = document.createElement('p');
+                                titleElement.textContent = title;
+
+                                const buttonContainer = document.createElement('div');
+                                buttonContainer.classList.add('button-container');
+                                buttonContainer.appendChild(titleElement);
+
+                                // Add click event to navigate to the link
+                                buttonContainer.addEventListener('click', () => {
+                                    window.location.href = link;
+                                });
+
+                                return buttonContainer;
+                            }
+
+                            // Create a button element with title and link for each button
+                            const buttonElements = buttonTitles.map((title, index) => {
+                                return createButtonElement(title, buttonLinks[index]);
+                            });
+
+                            // Append button containers to the jukebox
+                            buttonElements.forEach(buttonContainer => {
+                                jukebox.appendChild(buttonContainer);
+                            });
+                        })
+                        .catch(error => {
+                            console.error('Error fetching button links:', error);
+                        });
+                })
+                .catch(error => {
+                    console.error('Error fetching button titles:', error);
+                });
+        });
+    </script>
+</body>
+
+</html>
