@@ -57,7 +57,7 @@
 
 <body>
     <h1>Juicebox</h1>
-    <h3>A free online jukebox</h3>
+    <h3>A free jukebox</h3>
   <h3>Albums</h3>
     <div id="jukebox"></div>
     <script>
@@ -65,14 +65,14 @@
             const jukebox = document.getElementById('jukebox');
 
             // Fetch plaintext list of button titles from an external source
-            fetch('https://raw.githubusercontent.com/sebastian-92/juicebox/main/buttons.txt')
+            fetch('buttons.txt')
                 .then(response => response.text())
                 .then(buttonData => {
                     // Split the plain text data into an array of button titles
                     const buttonTitles = buttonData.split('\n').filter(title => title.trim() !== '');
 
                     // Fetch plaintext list of button links from another external source
-                    fetch('https://raw.githubusercontent.com/sebastian-92/juicebox/main/links.txt')
+                    fetch('links.txt')
                         .then(response => response.text())
                         .then(linkData => {
                             // Split the plain text data into an array of button links
