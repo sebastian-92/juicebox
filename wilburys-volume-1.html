@@ -67,10 +67,10 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // Fetch plaintext list of MP3 files from an external source
-            fetch('https://raw.githubusercontent.com/sebastian-92/juicebox/main/wilburys-volume-1.txt')
+            fetch('wilburys-volume-1.txt')
                 .then(response => response.text())
                 .then(data => {
-                    fetch('https://raw.githubusercontent.com/sebastian-92/juicebox/main/titleswilburys-volume-1.txt')
+                    fetch('titleswilburys-volume-1.txt')
                         .then(response => response.text())
                         .then(titleData => {
                             const jukebox = document.getElementById('jukebox');
