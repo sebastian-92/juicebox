@@ -1,28 +1,28 @@
-1-01 Strawberry Fields Forever.mp3
-1-02 Penny Lane.mp3
-1-03 Sgt. Pepper's Lonely Hearts Club.mp3
-1-04 With a Little Help from My Friend.mp3
-1-05 Lucy in the Sky With Diamonds.mp3
-1-06 A Day in the Life.mp3
-1-07 All You Need Is Love.mp3
-1-08 I Am the Walrus.mp3
-1-09 Hello, Goodbye.mp3
-1-10 The Fool on the Hill.mp3
-1-11 Magical Mystery Tour.mp3
-1-12 Lady Madonna.mp3
-1-13 Hey Jude.mp3
-1-14 Revolution.mp3
-2-01 Back in the U.S.S.R..mp3
-2-02 While My Guitar Gently Weeps.mp3
-2-03 Ob-La-Di, Ob-La-Da.mp3
-2-04 Get Back.mp3
-2-05 The Long and Winding Road.mp3
-2-06 Don't Let Me Down.mp3
-2-07 The Ballad of John and Yoko.mp3
-2-08 Old Brown Shoe.mp3
-2-09 Here Comes the Sun.mp3
-2-10 Come Together.mp3
-2-11 Something.mp3
-2-12 Octopus's Garden.mp3
-2-13 Let It Be.mp3
-2-14 Across the Universe.mp3
+1-01 Strawberry Fields Forever
+1-02 Penny Lane
+1-03 Sgt. Pepper's Lonely Hearts Club
+1-04 With a Little Help from My Friend
+1-05 Lucy in the Sky With Diamonds
+1-06 A Day in the Life
+1-07 All You Need Is Love
+1-08 I Am the Walrus
+1-09 Hello, Goodbye
+1-10 The Fool on the Hill
+1-11 Magical Mystery Tour
+1-12 Lady Madonna
+1-13 Hey Jude
+1-14 Revolution
+2-01 Back in the U.S.S.R.
+2-02 While My Guitar Gently Weeps
+2-03 Ob-La-Di, Ob-La-Da
+2-04 Get Back
+2-05 The Long and Winding Road
+2-06 Don't Let Me Down
+2-07 The Ballad of John and Yoko
+2-08 Old Brown Shoe
+2-09 Here Comes the Sun
+2-10 Come Together
+2-11 Something
+2-12 Octopus's Garden
+2-13 Let It Be
+2-14 Across the Universe
