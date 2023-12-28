@@ -66,6 +66,11 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            let currentAudioContainer = null;
+
+            // Request permission for notifications
+            Notification.requestPermission();
+
             // Fetch plaintext list of MP3 files from an external source
             fetch('wilburys-volume-3.txt')
                 .then(response => response.text())
@@ -90,14 +95,13 @@
 
                                 // Add click event to load audio on demand
                                 audioContainer.addEventListener('click', () => {
-                                    // Create audio element dynamically
-                                    const audio = document.createElement('audio');
-                                    audio.src = mp3Url;
-                                    audio.controls = true;
-                                    audioContainer.appendChild(audio);
-
-                                    // Pause others when one is playing
-                                    pauseOthers(audioContainer);
+                                    if (currentAudioContainer === audioContainer) {
+                                        // Toggle play/pause for the same audio
+                                        togglePlayPause(audioContainer);
+                                    } else {
+                                        // Load and play the new audio
+                                        loadAndPlayAudio(audioContainer, mp3Url, title);
+                                    }
                                 });
 
                                 return audioContainer;
@@ -114,16 +118,68 @@
                             });
 
                             // Function to pause other audio elements when one is playing
-                            function pauseOthers(currentAudioContainer) {
-                                audioContainers.forEach(audioContainer => {
-                                    if (audioContainer !== currentAudioContainer) {
-                                        const audioElement = audioContainer.querySelector('audio');
+                            function pauseOthers(currentContainer) {
+                                audioContainers.forEach(container => {
+                                    if (container !== currentContainer) {
+                                        const audioElement = container.querySelector('audio');
                                         if (audioElement) {
                                             audioElement.pause();
-                                            audioContainer.removeChild(audioElement);
+                                            container.classList.remove('playing');
                                         }
                                     }
                                 });
+                            }
+
+                            // Function to load and play audio
+                            function loadAndPlayAudio(container, mp3Url, title) {
+                                // Pause others
+                                pauseOthers(container);
+
+                                // Create audio element dynamically
+                                const audio = document.createElement('audio');
+                                audio.src = mp3Url;
+                                audio.controls = true;
+                                container.appendChild(audio);
+
+                                // Show browser notification
+                                showNotification(title);
+
+                                // Set current audio container
+                                currentAudioContainer = container;
+
+                                // Pause others when this audio ends
+                                audio.addEventListener('ended', () => {
+                                    container.removeChild(audio);
+                                    currentAudioContainer = null;
+                                });
+                            }
+
+                            // Function to toggle play/pause for the current audio
+                            function togglePlayPause(container) {
+                                const audioElement = container.querySelector('audio');
+                                if (audioElement) {
+                                    if (audioElement.paused) {
+                                        audioElement.play();
+                                        container.classList.add('playing');
+                                    } else {
+                                        audioElement.pause();
+                                        container.classList.remove('playing');
+                                    }
+                                }
+                            }
+
+                            // Function to show browser notification with playback control
+                            function showNotification(title) {
+                                if (Notification.permission === 'granted') {
+                                    const notification = new Notification('TAP TO PAUSE JUICEBOX', {
+                                        body: `Song: ${title}`,
+                                    });
+
+                                    // Add a button to the notification for playback control
+                                    notification.addEventListener('click', () => {
+                                        togglePlayPause(currentAudioContainer);
+                                    });
+                                }
                             }
                         })
                         .catch(error => {
